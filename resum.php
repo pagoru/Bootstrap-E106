@@ -1,43 +1,4 @@
 <!-- Pablo González Rubio - 2016 -->
-<?php
-
-$back = true;
-
-if(isset($_POST['form'])){
-    $GLOBALS['errorNvalues'] = "";
-    $GLOBALS['error'] = false;
-    $back = false;
-
-    addErrorNvalues("name", true);
-    addErrorNvalues("surnames", true);
-    addErrorNvalues("nif", true);
-    addErrorNvalues("pob", false);
-    addErrorNvalues("cp", false);
-    addErrorNvalues("db", false);
-    addErrorNvalues("email", true);
-    addErrorNvalues("tf", true);
-    addErrorNvalues("sex", false);
-    addErrorNvalues("state", false);
-
-    if($GLOBALS['error']){
-        header('Location: formulari.php?error=1'.$GLOBALS['errorNvalues']);
-    }
-}
-
-function addErrorNvalues($name, $obl){
-    if(strlen($_POST[$name]) != 0 || !$obl){
-        $GLOBALS['errorNvalues'] .= "&value_".$name."=".$_POST[$name];
-    } else {
-        $GLOBALS['error'] = true;
-        $GLOBALS['errorNvalues'] .= "&error_".$name."=1";
-    }
-}
-
-if($back){
-    header('Location: index.php');
-}
-
-?>
 <html>
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
@@ -67,11 +28,19 @@ if($back){
                 <h2>Resum</h2>
                 <div class="row">
                     <div class="col-md-4">Nom</div>
-                    <div class="col-md-7"><?php echo $_POST["name"]?></div>
+                    <div class="col-md-7">
+                        <?php if(empty($_POST["name"])):?>
+                        <span class="label label-danger">Valor no introduit</span>
+                        <?php else: echo $_POST["name"]; endif; ?>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">Cognoms</div>
-                    <div class="col-md-7"><?php echo $_POST["surnames"]?></div>
+                    <div class="col-md-7">
+                        <?php if(empty($_POST["surnames"])):?>
+                            <span class="label label-danger">Valor no introduit</span>
+                        <?php else: echo $_POST["surnames"]; endif; ?>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">NIF</div>
@@ -91,11 +60,19 @@ if($back){
                 </div>
                 <div class="row">
                     <div class="col-md-4">Email</div>
-                    <div class="col-md-7"><?php echo $_POST["email"]?></div>
+                    <div class="col-md-7">
+                        <?php if(empty($_POST["email"])):?>
+                            <span class="label label-danger">Valor no introduit</span>
+                        <?php else: echo $_POST["email"]; endif; ?>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">Telèfon</div>
-                    <div class="col-md-7"><?php echo $_POST["tf"]?></div>
+                    <div class="col-md-7">
+                        <?php if(empty($_POST["tf"])):?>
+                            <span class="label label-danger">Valor no introduit</span>
+                        <?php else: echo $_POST["tf"]; endif; ?>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-md-4">Sexe</div>
@@ -106,7 +83,7 @@ if($back){
                     <div class="col-md-7"><?php echo $_POST["state"]?></div>
                 </div>
                 <p>
-                    <a class="btn btn-danger" href="<?php echo 'formulari.php?error=1'.$GLOBALS['errorNvalues'];?>">Tornar al formulari</a>
+                    <a class="btn btn-danger" href="<?php echo 'formulari.php?name='.$_POST["name"];?>">Tornar al formulari</a>
                     <a type="submit" class="btn btn-success" name="form" href="index.php">Tornar al index</a>
                 </p>
             </div>

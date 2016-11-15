@@ -28,7 +28,7 @@ $error = isset($_GET['error']);
 
             <div class="jumbotron">
                 <h2>Index</h2>
-                <form class="navbar-form" action="formulari.php" method="post">
+                <form class="navbar-form" action="formulari.php" method="get">
                     <hr />
                     <div class="form-group">
                         <input class="form-control" placeholder="Nom client" type="text" name="name"/>
